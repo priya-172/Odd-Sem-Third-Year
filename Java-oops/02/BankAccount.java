@@ -1,122 +1,116 @@
 import java.io.*;
-class Bank
-{
+class Bank{
 String name;
+String acc_no;
 char type;
-String account;
 int balance;
 int overdraft;
-Bank(String name,char type,String account,int balance)
-{
-this.name=name;
-this.type=type;
-this.account=account;
-this.balance=balance;
-this.overdraft=0;
+Bank(String name,String  acc_no,char type,int balance){
+this. name= name;
+this. acc_no =  acc_no;
+this. type= type;
+this. balance= balance;
+this. overdraft= 0;
 }
-void withdraw(int amount)
-{
-	if(type=='S')
-	{
-		if(balance-amount>=1000)
-			balance=balance-amount;
-		else
-			System.out.println("Unable to withdraw from Savings");
-	}
-	else
-	{
-		if(balance<0)
-		{
-			System.out.println("Unable to withdraw from Current");
-			System.out.println("as there is an overdraft of "+overdraft);
+void withdraw(int amount){
+if(type=='S'){
+
+if(balance-amount<=1000){
+System.out.println("THIS IS NOT ALLOWED");
+				}
+else{
+balance=balance-amount;
+			}
 		}
-		else
-		{
-			balance=balance-amount;
-			if(balance<0)
-				overdraft=-balance;
+}
+}else{
+if(balance<0){
+System.out.println("Unable To Withdraw");
+System.out.println("Overdraft is"+overdraft);
+
+}
+else{
+balance=balance-amount;
+if(balance<0){
+overdraft=-balance;
+				}
+			}
 		}
 	}
+void deposite(int amount){
+balance+=amount;
 }
-void deposit(int amount)
-{
-	balance+=amount;
+
+int checkBalance(){
+return balance;
 }
-int checkBalance()
-{
-	return balance;
 }
-class BankAccount
+class BankAccount{
+public static void main(String agrs[])throws IOException
 {
-	public static void main(String args[])throws IOExceptipon
-	{
-		BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
+
+BufferedReader sc=new BufferedReader(new InputStreamReader(System.in));
+
+while(1){
+System.out.println("ENTER USER DATA\nENTER 0 FOR CONTINUE AND 1 FOR EXIT");
+int n=Integer.parseInt(sc.readLine());
+if(n==1){break;}
+else if(n!=0){
+System.out.println("WRONG INPUT");
+continue;
+}
+System.out.println("ENTER ACCOUNT TYPE :");
+char type=sc.read();
+System.out.println("ENTER ACCOUNT HOLDER NAME:");
+String name=sc.readLine();
+System.out.println("ENTER ACCOUNT HOLDER ACCOUNT NUMBER:");
+String  acc_no=sc.readLine();
+System.out.println("ENTER ACCOUNT HOLDER ACCOUNT BALANCE:");
+int balance=Integer.parseInt(sc.readLine());
+Bank b=new Bank(name,acc_no,type,balance);
+System.out.println("NAME OF THE ACCOUNT HOLDER IS:"+b.name);
+if(b.type=='S'){
+System.out.println("ACCOUNT TYPE IS SAVINGS");
+				}
+else{
+System.out.println("ACCOUNT TYPE IS CURRENT");
+}
+System.out.println("ACCOUNT Number IS"+b.acc_no);
+while(1){
+
+System.out.println("ACCOUNT BALANCE IS"+b.balance);
+System.out.println("ACCOUNT OVERDRAFT IS"+b.overdraft);
+System.out.println("PRESS 2 FOR CONTINUE WITH THE CURRENT USER AND 3 FOR NEW USER");
+int m=Integer.parseInt(sc.readLine());
+if(m==3){break;}
+if(m!=2){
+System.out.println("WRONG INPUT");
+continue;
+}
+System.out.println("PRESS 4 FOR WITHDRAW\nPRESS 5 FOR DEPOSITE\nPRESS 6 FOR CHECKBALANCE");
+int K=Integer.parseInt(sc.readLine());
+if(k==4){
+System.out.println("ENTER THE AMOUNT YOU WANT TO WITHDRAW");
+int amt=Integer.parseInt(sc.readLine());
+b.withdraw(amt);
+}
+else if(k==5){
+System.out.println("ENTER THE AMOUNT YOU WANT TO DEPOSITE");
+int amt=Integer.parseInt(sc.readLine());
+b.deposite(amt);
+}
+else if(k==6){
+System.out.println("BALANCE IS"+b.checkBalance());
+}
+else{
+System.out.println("WRONG INPUT");
+}
+
+}
 		
-		while(1==1)
-		{
-			System.out.println("Keep entering new user date. Press 0 to continue.Press 1 to exit")
-			int n=Integer.parseInt(br.readLine());
-			if(n==1)
-				break;
-			else if(n!=0)
-			{
-				System.out.println("Wrong input..Enter again");
-				continue;
-			}
-			System.out.println("Enter account type- C for Current S for Savings");
-			char type=br.read();
-			System.out.println("Enter account holder name");
-			String name=br.readLine();
-			System.out.println("Enter account number");
-			String account=br.readLine();
-			System.out.println("Enter amount to be put");
-			int balance=Integer.parseInt(br.readLine());
-			Bank b=new Bank(name,type,account,balance);
-			System.out.println("Account holder's name is "+b.name);
-			if(type=='C')
-				System.out.println("Account holder's account type is "+ Current);
-			else 
-				System.out.println("Account holder's account type is "+ Savings);
-			System.out.println("Account holder's account number is "+b.account);
-			while(1==1)
-			{
-				
-				System.out.println("Account holder's balance is "+b.balance);
-				System.out.println("Account holder's overdraft is "+b.overdraft);
-				System.out.println("To continue with same user press 1 else press 2 to create a new user's account");
-				int choice=Integer.parseInt(br.readLine());
-				if(choice==2)
-				{
-					break;
-				}
-				else if(choice!=1)
-				{
-					System.out.println("Wrong input...");
-					continue;
-				}
-				System.out.println("Press 1 withdraw,2 to deposit,3 to check balance");
-				choice=Integer.parseInt(br.readLine());
-				if(choice==1)
-				{
-					System.out.println("Enter amount to withdraw");
-					int amt=Integer.parseInt(br.readLine());
-					b.withdraw(amt);
-				}
-				else if(choice==2)
-				{
-					System.out.println("Enter amount to deposit");
-					int depo=Integer.parseInt(br.readLine());
-					b.deposit(depo);
-				}
-				else if(choice==3)
-				{
-					System.out.println("Balance is "+b.balance);
-				}
-				else
-				{
-					System.out.println("Wrong input...");
-				}
-			}
-		}
+}
+
+
+
 	}
 }
