@@ -63,7 +63,7 @@ class BankAccount {
 				continue;
 			}
 			System.out.println("ENTER ACCOUNT TYPE :");
-			char type = (char)sc.read();
+			char type = sc.readLine().charAt(0);
 			System.out.println("ENTER ACCOUNT HOLDER NAME:");
 			String name = sc.readLine();
 			System.out.println("ENTER ACCOUNT HOLDER ACCOUNT NUMBER:");
